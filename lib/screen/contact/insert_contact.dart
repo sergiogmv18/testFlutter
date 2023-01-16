@@ -55,15 +55,14 @@ class InsertContactScreenState extends State<InsertContactScreen> {
       context: context,
       child: Scaffold(
         backgroundColor: CustomColors().aiAqua,
-       appBar: appBarCustom(),
+       appBar: appBarCustom(context),
         body: Column(
                crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                Row(
                 children: [
-                
                   TextField(
-                    keyboardType: TextInputType.visiblePassword,
+                    keyboardType: TextInputType.name,
                     decoration:const InputDecoration(
                       labelText: "Nome",
                     ),

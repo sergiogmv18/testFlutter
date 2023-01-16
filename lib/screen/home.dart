@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:test/component/app_bar_component.dart';
 import 'package:test/component/button_component.dart';
 import 'package:test/component/will_pop_scope_custom.dart';
 import 'package:test/controllers/storage_controller.dart';
@@ -59,7 +60,7 @@ class HomeScreenState extends State<HomeScreen> {
             size: 36,
           ),
         ): null,
-        appBar: AppBar(shadowColor: Colors.blue),
+        appBar: appBarCustom(context),
         body:showSpecificWidget(contacts),
       )
     );
