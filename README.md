@@ -1,16 +1,27 @@
-# test
+# Project Title
 
-A new Flutter project.
+testFlutter.
+
+## Description
+
+* test in flutter for web, it is a CRUD of users, it works like a dashborad.
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+### Dependencies
 
-A few resources to get you started if this is your first Flutter project:
+* Application to create and manage instances
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Estructure
+***     Storage :**_
+***         storage is a file (attention)**_
+***     MVC :**_
+***         M = is a file, you can see the read and write in File Controller, It is not a model, but it is in charge of that administration**_
+***         V = view (Screen)**_
+***         C = there is a controller for each object**_
+
+## Authors
+
+Contributors names and contact info
+
