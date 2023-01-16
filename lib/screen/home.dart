@@ -37,7 +37,7 @@ class HomeScreenState extends State<HomeScreen> {
     }else{
       storage = await storageController.readAppStorage();
       contacts = storage['contacts'].isNotEmpty ?? true;
-      FunctionsClass.printDebug(contacts);
+      FunctionsClass.printDebug(storage);
 
     }
     setState(() {

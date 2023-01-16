@@ -61,6 +61,7 @@ class CustomColors {
   final Color backgroundColor = Colors.grey;
   final Color errorColor = Colors.red;
   final Color action =  Colors.green;
+  final Color blackColor = Colors.black;
 }
 
 class _TextTheme {
