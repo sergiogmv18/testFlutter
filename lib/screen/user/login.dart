@@ -6,8 +6,6 @@ import 'package:search_cep/search_cep.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:test/component/button_component.dart';
 import 'package:test/component/component_circular_progress_indicator.dart';
-import 'package:test/component/pin_code_custom.dart';
-import 'package:test/controllers/storage_controller.dart';
 import 'package:test/controllers/user_controller.dart';
 import 'package:test/helpers/FunctionsClass.dart';
 import 'package:test/style.dart';

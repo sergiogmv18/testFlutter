@@ -2,8 +2,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:test/controllers/storage_controller.dart';
 import 'package:test/helpers/FunctionsClass.dart';
 
-class UserController{
-  StorageController storageController =StorageController();
+class UserController {
+  StorageController storageController = StorageController();
 
   /*
    * create or edit user
@@ -12,16 +12,16 @@ class UserController{
    * @version 1.0 - 20230112 - initial release
    */
   Future<Map<String, dynamic>> saveUser(Map<String, dynamic> data) async {
-   Map<String, dynamic> storage = await storageController.readAppStorage();
+    Map<String, dynamic> storage = await storageController.readAppStorage();
     FunctionsClass.printDebug(data);
     Map<String, dynamic> response = {};
     if (!canTheDataBeSaved(data)) {
       return {'success': false, 'checkMandatoryData': true};
     }
     storage['user'] = data;
-    await storageController.writeAppStorage(storage);  
-    response['success'] = true; 
-   
+    await storageController.writeAppStorage(storage);
+    response['success'] = true;
+
     return response;
   }
 
@@ -42,20 +42,29 @@ class UserController{
     return true;
   }
 
-  
+  /*
+   * Logout
+   * @author  SGV
+   * @version 1.0 - 20230116 - initial release
+   * @return  void
+   */
+  Future logout() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.clear();
+  }
+
   /*
    * Verify if login to user
    * @author  SGV
    * @version 1.0 - 20230112 - initial release
    * @return  bool
    */
-  Future<bool>verifyInternalUrl()async{
+  Future<bool> verifyInternalUrl() async {
     bool session = false;
-    final prefs = await SharedPreferences.getInstance();  
-   if (prefs.getBool('first_run') == true) {
+    final prefs = await SharedPreferences.getInstance();
+    if (prefs.getBool('first_run') == true) {
       session = true;
     }
     return session;
   }
-
 }
