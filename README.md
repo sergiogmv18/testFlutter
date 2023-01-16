@@ -14,14 +14,13 @@ testFlutter.
 
 
 ## Estructure
-***     Storage :**_
-***         storage is a file (attention)**_
-***     MVC :**_
-***         M = is a file, you can see the read and write in File Controller, It is not a model, but it is in charge of that administration**_
-***         V = view (Screen)**_
-***         C = there is a controller for each object**_
+  Storage: storage is a file (attention)
+  MVC :
+      * M = is a file, you can see the read and write in File Controller, It is not a model, but it           is in charge of that administration
+      * V = view (Screen)
+      * C = there is a controller for each object
 
 ## Authors
+SGV 
 
-Contributors names and contact info
 
