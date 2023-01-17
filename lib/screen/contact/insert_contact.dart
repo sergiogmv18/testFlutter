@@ -34,12 +34,15 @@ class InsertContactScreenState extends State<InsertContactScreen> {
   String? bairro;
   String? sobreNome;
   String? endereco;
+  String? number;
   bool validInput = false;
   final controllerLocalidade = TextEditingController();
   final controllerEndereco = TextEditingController();
   final controllerBairro = TextEditingController();
   final controllerLogradouro = TextEditingController();
   final controllerUf = TextEditingController();
+  final controllerNumber = TextEditingController();
+  final controllerComplement = TextEditingController();
   Map<String, dynamic> contact = {};
 
   @override
@@ -126,43 +129,39 @@ class InsertContactScreenState extends State<InsertContactScreen> {
                         )
                       ],
                     ),
-                   const SizedBox(height: 20),
+                    const SizedBox(height: 20),
 // CEP
                     SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.4,
-                      child: Column(
-                        children: [
-                          SizedBox(
-                            width: MediaQuery.of(context).size.width * 0.4,
-                            child: TextField(
-                              keyboardType: TextInputType.name,
-                              decoration: InputDecoration(
-                                labelText: "CEP",
-                                enabledBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(color: CustomColors().blackColor),
-                                ),
-                                focusedBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(color: CustomColors().frontColor),
-                                ),
-                              ),
-                              onChanged: (value) {
-                                setState(() {
-                                  if (value.isNotEmpty) {
-                                    cep = value;
-                                  } else {
-                                    cep = null;
-                                  }
-                                });
-                              }
+                        width: MediaQuery.of(context).size.width * 0.4,
+                        child: Column(
+                          children: [
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.4,
+                              child: TextField(
+                                  keyboardType: TextInputType.name,
+                                  decoration: InputDecoration(
+                                    labelText: "CEP",
+                                    enabledBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(color: CustomColors().blackColor),
+                                    ),
+                                    focusedBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(color: CustomColors().frontColor),
+                                    ),
+                                  ),
+                                  onChanged: (value) {
+                                    setState(() {
+                                      if (value.isNotEmpty) {
+                                        cep = value;
+                                      } else {
+                                        cep = null;
+                                      }
+                                    });
+                                  }),
                             ),
-                          ),
-                          const SizedBox(
-                            height: 20,
-                          ),
-                          buttonCustom(
-                            context, 
-                            customCollor: CustomColors().action, 
-                            onPressed: () async {
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            buttonCustom(context, customCollor: CustomColors().action, onPressed: () async {
                               ViaCepInfo? data;
                               showCircularLoadingDialog(context);
                               final viaCepSearchCep = ViaCepSearchCep();
@@ -180,39 +179,68 @@ class InsertContactScreenState extends State<InsertContactScreen> {
                               });
                               Navigator.of(context).pop();
                             },
-                            child: Text(
-                              "search",
-                              style: Theme.of(context).textTheme.subtitle2!.copyWith(color: Colors.white),
-                              textAlign: TextAlign.center,
-                            )
-                          )
-                        ],
-                      )
-                    ),
-                    if(checkMandatoryData)...[
-                      const SizedBox(height: 20,),
-                      Text("prencha todos os campos",
-                        style: Theme.of(context).textTheme.subtitle1!.copyWith(color:CustomColors().errorColor),
+                                child: Text(
+                                  "search",
+                                  style: Theme.of(context).textTheme.subtitle2!.copyWith(color: Colors.white),
+                                  textAlign: TextAlign.center,
+                                ))
+                          ],
+                        )),
+                    if (checkMandatoryData) ...[
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Text(
+                        "prencha todos os campos",
+                        style: Theme.of(context).textTheme.subtitle1!.copyWith(color: CustomColors().errorColor),
                         textAlign: TextAlign.center,
                       ),
                     ],
                     const SizedBox(
                       height: 20,
                     ),
-                    if(validInput)...[
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        SizedBox(
-                          width: MediaQuery.of(context).size.width * 0.4,
-                          child: Column(
-                            children: [
-                              TextField(
+                    if (validInput) ...[
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.4,
+                              child: Column(
+                                children: [
+                                  TextField(
+                                      keyboardType: TextInputType.name,
+                                      controller: controllerBairro,
+                                      enabled: false,
+                                      decoration: InputDecoration(
+                                        labelText: "Bairro",
+                                        enabledBorder: UnderlineInputBorder(
+                                          borderSide: BorderSide(color: CustomColors().blackColor),
+                                        ),
+                                        focusedBorder: UnderlineInputBorder(
+                                          borderSide: BorderSide(color: CustomColors().frontColor),
+                                        ),
+                                      ),
+                                      onChanged: (value) {
+                                        setState(() {
+                                          if (value.isNotEmpty) {
+                                            controllerBairro.text = value;
+                                            bairro = value;
+                                          } else {
+                                            bairro = null;
+                                          }
+                                        });
+                                      }),
+                                ],
+                              )),
+                          SizedBox(width: MediaQuery.of(context).size.width * 0.10),
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width * 0.4,
+                            child: TextField(
+                                controller: controllerLocalidade,
                                 keyboardType: TextInputType.name,
-                                controller: controllerBairro,
                                 enabled: false,
                                 decoration: InputDecoration(
-                                  labelText: "Bairro",
+                                  labelText: "Localidade",
                                   enabledBorder: UnderlineInputBorder(
                                     borderSide: BorderSide(color: CustomColors().blackColor),
                                   ),
@@ -223,62 +251,58 @@ class InsertContactScreenState extends State<InsertContactScreen> {
                                 onChanged: (value) {
                                   setState(() {
                                     if (value.isNotEmpty) {
-                                      controllerBairro.text = value;
-                                      bairro = value;
-                                    } else {
-                                      bairro = null;
+                                      controllerLocalidade.text = value;
                                     }
                                   });
-                                }
-                              ),
-                              
-                              ],
-                            )
+                                }),
                           ),
-                          SizedBox(width: MediaQuery.of(context).size.width * 0.10),
-                          SizedBox(
-                            width: MediaQuery.of(context).size.width * 0.4,
-                            child: TextField(
-                              controller: controllerLocalidade,
-                              keyboardType: TextInputType.name,
-                              enabled: false,
-                              decoration: InputDecoration(
-                                labelText: "Localidade",
-                                enabledBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(color: CustomColors().blackColor),
-                                ),
-                                focusedBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(color: CustomColors().frontColor),
-                                ),
-                              ),
-                              onChanged: (value) {
-                                setState(() {
-                                  if (value.isNotEmpty) {
-                                    controllerLocalidade.text = value;
-                                  }
-                                });
-                              }
-                            ),
-                          ),
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
 // 1111111
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        SizedBox(
-                          width: MediaQuery.of(context).size.width * 0.4,
-                          child: Column(
-                            children: [
-                              TextField(
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.4,
+                              child: Column(
+                                children: [
+                                  TextField(
+                                      keyboardType: TextInputType.name,
+                                      controller: controllerEndereco,
+                                      enabled: false,
+                                      decoration: InputDecoration(
+                                        labelText: "endereço",
+                                        enabledBorder: UnderlineInputBorder(
+                                          borderSide: BorderSide(color: CustomColors().blackColor),
+                                        ),
+                                        focusedBorder: UnderlineInputBorder(
+                                          borderSide: BorderSide(color: CustomColors().frontColor),
+                                        ),
+                                      ),
+                                      onChanged: (value) {
+                                        setState(() {
+                                          if (value.isNotEmpty) {
+                                            controllerEndereco.text = value;
+                                            endereco = value;
+                                          } else {
+                                            endereco = null;
+                                          }
+                                        });
+                                      }),
+                                ],
+                              )),
+                          SizedBox(width: MediaQuery.of(context).size.width * 0.10),
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width * 0.4,
+                            child: TextField(
+                                controller: controllerUf,
                                 keyboardType: TextInputType.name,
-                                controller: controllerEndereco,
                                 enabled: false,
                                 decoration: InputDecoration(
-                                  labelText: "endereço",
+                                  labelText: "UF",
                                   enabledBorder: UnderlineInputBorder(
                                     borderSide: BorderSide(color: CustomColors().blackColor),
                                   ),
@@ -289,80 +313,104 @@ class InsertContactScreenState extends State<InsertContactScreen> {
                                 onChanged: (value) {
                                   setState(() {
                                     if (value.isNotEmpty) {
-                                      controllerEndereco.text = value;
-                                      endereco = value;
-                                    } else {
-                                      endereco = null;
+                                      controllerLocalidade.text = value;
                                     }
                                   });
-                                }
-                              ),
-                              
-                              ],
-                            )
+                                }),
                           ),
+                        ],
+                      ),
+// 2222222222
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.4,
+                              child: Column(
+                                children: [
+                                  TextField(
+                                      keyboardType: TextInputType.name,
+                                    //controller: controllerNumber,
+                                      enabled: true,
+                                      decoration: InputDecoration(
+                                        labelText: "Numero",
+                                        enabledBorder: UnderlineInputBorder(
+                                          borderSide: BorderSide(color: CustomColors().blackColor),
+                                        ),
+                                        focusedBorder: UnderlineInputBorder(
+                                          borderSide: BorderSide(color: CustomColors().frontColor),
+                                        ),
+                                      ),
+                                      onChanged: (value) {
+                                        setState(() {
+                                          if (value.isNotEmpty) {
+                                            controllerNumber.text = value;
+                                            number = value;
+                                          }
+                                        });
+                                      }),
+                                ],
+                              )),
                           SizedBox(width: MediaQuery.of(context).size.width * 0.10),
                           SizedBox(
                             width: MediaQuery.of(context).size.width * 0.4,
                             child: TextField(
-                              controller: controllerUf,
-                              keyboardType: TextInputType.name,
-                              enabled: false,
-                              decoration: InputDecoration(
-                                labelText: "UF",
-                                enabledBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(color: CustomColors().blackColor),
+                                //ontroller: controllerComplement,
+                                keyboardType: TextInputType.name,
+                                enabled: true,
+                                decoration: InputDecoration(
+                                  labelText: "complemento",
+                                  enabledBorder: UnderlineInputBorder(
+                                    borderSide: BorderSide(color: CustomColors().blackColor),
+                                  ),
+                                  focusedBorder: UnderlineInputBorder(
+                                    borderSide: BorderSide(color: CustomColors().frontColor),
+                                  ),
                                 ),
-                                focusedBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(color: CustomColors().frontColor),
-                                ),
-                              ),
-                              onChanged: (value) {
-                                setState(() {
-                                  if (value.isNotEmpty) {
-                                    controllerLocalidade.text = value;
-                                  }
-                                });
-                              }
-                            ),
+                                onChanged: (value) {
+                                  setState(() {
+                                    if (value.isNotEmpty) {
+                                      controllerComplement.text = value;
+                                      complemento = value;
+                                    }
+                                  });
+                                }),
                           ),
-                      ],
-                    ),
-// 2222222222
-                    const SizedBox(height: 40),
-                    Column(
+                        ],
+                      ),
+                      const SizedBox(height: 40),
+                      Column(
                         children: [
                           buttonCustom(context, customCollor: CustomColors().action, onPressed: () async {
-                        //  showCircularLoadingDialog(context);
-                         // Map<String, dynamic> data = {'password': 1, 'name': 1};
-                         Map<String, dynamic> response ={}; //await ContactController().saveContact(data);
-                         contact = {'name': '$name', 'sobreNome': '$sobreNome', 'endereco': {'endereco': endereco, 'bairro': controllerBairro.text, 'uf':controllerUf.text}};
-                          FunctionsClass.printDebug('$contact');
-                          await ContactController().saveContact(contact);
-                          if (response['checkMandatoryData'] != null && response['checkMandatoryData']) {
-                            Navigator.of(context).pop();
+                            showCircularLoadingDialog(context);
                             setState(() {
-                              checkMandatoryData = true;
-                            });
-                            return;
-                          }
-                          FunctionsClass.printDebug(response);
-                          if (response['success']) {
-                            final prefs = await SharedPreferences.getInstance();
-                            prefs.setBool('first_run', true);
+                                checkMandatoryData = false;
+                              });
+                            // Map<String, dynamic> data = {'password': 1, 'name': 1};
+                            Map<String, dynamic> response = {}; //await ContactController().saveContact(data);
+                            contact = {
+                              'name': '$name',
+                              'sobreNome': '$sobreNome',
+                              'endereco': {'endereco': endereco, 'number':number, 'complement': complemento, 'city':controllerLocalidade.text,  'bairro': controllerBairro.text, 'uf': controllerUf.text}
+                            };
+                            response = await ContactController().saveContact(contact);
+                            if (response['checkMandatoryData'] != null && response['checkMandatoryData']) {
+                              Navigator.of(context).pop();
+                              setState(() {
+                                checkMandatoryData = true;
+                              });
+                              return;
+                            }
                             Navigator.of(context).pushNamedAndRemoveUntil('/home', (route) => false);
-                          }
-                        },
-                            child: Text(
-                              "Salvar",
-                              style: Theme.of(context).textTheme.subtitle2!.copyWith(color: Colors.white),
-                              textAlign: TextAlign.center,
-                            ))
-
-                        ],) 
-                            
-                            
-                  ],
+                          },
+                              child: Text(
+                                "Salvar",
+                                style: Theme.of(context).textTheme.subtitle2!.copyWith(color: Colors.white),
+                                textAlign: TextAlign.center,
+                              ))
+                        ],
+                      )
+                    ],
                   ],
                 ))));
   }
